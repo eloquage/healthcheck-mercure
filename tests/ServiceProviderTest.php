@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 it('registers the config publish path under the correct tag', function () {
     $provider = app()->getProvider(IllumaLaw\HealthCheckMercure\HealthcheckMercureServiceProvider::class);
-    $source = dirname((new \ReflectionClass($provider))->getFileName()).'/../config/healthcheck-mercure.php';
+    $source = dirname((new ReflectionClass($provider))->getFileName()).'/../config/healthcheck-mercure.php';
 
     expect(ServiceProvider::pathsToPublish($provider::class, 'healthcheck-mercure-config'))
         ->toBe([$source => config_path('healthcheck-mercure.php')]);
