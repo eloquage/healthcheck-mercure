@@ -1,32 +1,57 @@
-# Healthcheck mercure for Laravel
+# Healthcheck Mercure
 
 [![Tests](https://github.com/eloquage/healthcheck-mercure/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eloquage/healthcheck-mercure/actions)
-[![Packagist License](https://img.shields.io/badge/Licence-MIT-blue)](http://choosealicense.com/licenses/mit/)
-[![Latest Stable Version](https://img.shields.io/packagist/v/illuma-law/healthcheck-mercure?label=Version)](https://packagist.org/packages/illuma-law/healthcheck-mercure)
+[![Latest Version](https://img.shields.io/packagist/v/illuma-law/healthcheck-mercure)](https://packagist.org/packages/illuma-law/healthcheck-mercure)
+[![License](https://img.shields.io/packagist/l/illuma-law/healthcheck-mercure)](LICENSE.md)
 
-A focused mercure health check for Spatie's [Laravel Health](https://spatie.be/docs/laravel-health/v1/introduction) package.
+![Mercure connection health check illustration](art/banner.png)
 
-This package provides a simple, direct health check to verify that your application's Mercure hub is reachable and responding to HTTP requests.
+A Laravel Health check that opens a short-lived subscription request to your Mercure hub and checks whether the hub accepts it.
 
-## Features
+## Requirements
 
-- **Reachability Check:** Verifies that your Laravel application can successfully connect to the configured Mercure hub URL.
-- **HTTP Status Validation:** Ensures the Mercure hub returns a successful HTTP status code (2xx).
-- **Configurable Timeout:** Respects your configured timeout settings to prevent the health check from hanging.
+- PHP 8.3 or later
+- Laravel 11, 12, or 13
+- [Spatie Laravel Health](https://spatie.be/docs/laravel-health)
+- A Mercure hub configured as a `mercure` broadcasting connection
 
-## Installation
+## Install
 
-Require this package with composer:
-
-```shell
+```bash
 composer require illuma-law/healthcheck-mercure
 ```
 
-## Usage & Integration
+## Configure
 
-Register the check inside your application's health service provider (e.g. `AppServiceProvider` or a dedicated `HealthServiceProvider`), alongside your other Spatie Laravel Health checks:
+Set the `mercure` connection in `config/broadcasting.php`:
 
-### Basic Registration
+```php
+'connections' => [
+    'mercure' => [
+        'url' => env('MERCURE_URL'),
+        'public_url' => env('MERCURE_PUBLIC_URL'),
+    ],
+],
+```
+
+The check prefers `public_url` and falls back to `url`. Publish package settings if you want to customize the probe:
+
+```bash
+php artisan vendor:publish --tag=healthcheck-mercure-config
+```
+
+Settings in `config/healthcheck-mercure.php`:
+
+- `required`: when `true`, a missing or unreachable hub fails the check; otherwise it warns. Default: `false`.
+- `probe_topic`: topic matcher used for the subscription. Default: `https://example.com/healthcheck`.
+- `timeout_seconds`: time allowed to open the subscription. Default: `5`.
+- `subscriber_token`: optional bearer token for protected topics.
+
+Environment variables are `HEALTH_MERCURE_REQUIRED`, `HEALTH_MERCURE_PROBE_TOPIC`, `HEALTH_MERCURE_TIMEOUT_SECONDS`, and `HEALTH_MERCURE_SUBSCRIBER_TOKEN`.
+
+## Use
+
+Register the check with your Laravel Health checks:
 
 ```php
 use IllumaLaw\HealthCheckMercure\MercureCheck;
@@ -37,21 +62,16 @@ Health::checks([
 ]);
 ```
 
-### Expected Result States
+The check uses a streaming HTTP request and closes the connection after reading the response status, so an open server-sent events stream does not wait for an event or time out. It checks the subscriber request path; it does not publish an update or prove end-to-end delivery. For transport readiness, Mercure recommends its local admin endpoint at [`/mercure/health/ready`](https://mercure.rocks/docs/production/health-monitoring).
 
-The check interacts with the Spatie Health dashboard and JSON endpoints using these states:
+## Tests
 
-- **Ok:** Mercure hub is reachable and returned a 2xx status code.
-- **Failed:** Mercure hub was unreachable, timed out, or returned an error status code (4xx/5xx).
-
-## Testing
-
-Run the test suite:
-
-```shell
+```bash
+composer install
 composer test
+composer analyse
 ```
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+MIT. See [LICENSE.md](LICENSE.md).
