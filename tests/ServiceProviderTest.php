@@ -18,5 +18,8 @@ it('registers the config publish path under the correct tag', function () {
 });
 
 it('loads config with the correct default', function () {
-    expect(config('healthcheck-mercure.required'))->toBeFalse();
+    expect(config('healthcheck-mercure.required'))->toBeFalse()
+        ->and(config('healthcheck-mercure.probe_topic'))->toBe('https://example.com/healthcheck')
+        ->and(config('healthcheck-mercure.timeout_seconds'))->toBe(5)
+        ->and(config('healthcheck-mercure.subscriber_token'))->toBeNull();
 });

@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'installed' => 'mercure extension is installed (version :version).',
-    'missing' => 'mercure extension is required but not installed.',
-    'not_installed' => 'mercure extension is not installed.',
-    'query_failed' => 'Could not verify mercure extension: :message',
+    'connected' => 'Mercure accepted the subscription request.',
+    'not_configured' => 'Mercure hub URL is not configured.',
+    'unreachable' => 'Mercure hub could not be reached: :message',
+    'server_error' => 'Mercure hub returned server error :code.',
+    'client_error' => 'Mercure hub returned HTTP status :code.',
 ];
