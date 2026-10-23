@@ -1,6 +1,6 @@
 # Healthcheck mercure for Laravel
 
-[![Tests](https://github.com/illuma-law/healthcheck-mercure/actions/workflows/run-tests.yml/badge.svg)](https://github.com/illuma-law/healthcheck-mercure/actions)
+[![Tests](https://github.com/eloquage/healthcheck-mercure/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eloquage/healthcheck-mercure/actions)
 [![Packagist License](https://img.shields.io/badge/Licence-MIT-blue)](http://choosealicense.com/licenses/mit/)
 [![Latest Stable Version](https://img.shields.io/packagist/v/illuma-law/healthcheck-mercure?label=Version)](https://packagist.org/packages/illuma-law/healthcheck-mercure)
 
