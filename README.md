@@ -1,8 +1,8 @@
 # Healthcheck Mercure
 
 [![Tests](https://github.com/eloquage/healthcheck-mercure/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eloquage/healthcheck-mercure/actions)
-[![Latest Version](https://img.shields.io/packagist/v/illuma-law/healthcheck-mercure)](https://packagist.org/packages/illuma-law/healthcheck-mercure)
-[![License](https://img.shields.io/packagist/l/illuma-law/healthcheck-mercure)](LICENSE.md)
+[![Latest Version](https://img.shields.io/packagist/v/eloquage/healthcheck-mercure)](https://packagist.org/packages/eloquage/healthcheck-mercure)
+[![License](https://img.shields.io/packagist/l/eloquage/healthcheck-mercure)](LICENSE.md)
 
 ![Mercure connection health check illustration](art/banner.png)
 
@@ -18,7 +18,7 @@ A Laravel Health check that opens a short-lived subscription request to your Mer
 ## Install
 
 ```bash
-composer require illuma-law/healthcheck-mercure
+composer require eloquage/healthcheck-mercure
 ```
 
 ## Configure

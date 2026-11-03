@@ -1,4 +1,4 @@
-# illuma-law/healthcheck-mercure
+# eloquage/healthcheck-mercure
 
 Checks that the configured Mercure subscription endpoint accepts a short-lived SSE probe.
 

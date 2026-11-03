@@ -7,7 +7,7 @@ metadata:
 
 # Writing and documentation
 
-Write documentation for `illuma-law/healthcheck-mercure` (Focused mercure health check for Spatie's Laravel Health package.) that lets the intended reader complete a concrete task.
+Write documentation for `eloquage/healthcheck-mercure` (Focused mercure health check for Spatie's Laravel Health package.) that lets the intended reader complete a concrete task.
 
 ## Source and structure
 
